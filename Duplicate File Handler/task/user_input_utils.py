@@ -1,3 +1,5 @@
+from file_entry import FileEntry
+
 def get_file_format_from_user():
     return input('Enter file format:\n')
 
@@ -19,3 +21,20 @@ def get_user_choice_to_check_duplicates():
     while (check_for_duplicates := input('Check for duplicates?\n')) not in ('yes', 'no'):
         print('Wrong option')
     return check_for_duplicates == 'yes'
+
+
+def get_user_choice_to_delete():
+    while (check_for_duplicates := input('Delete files?\n')) not in ('yes', 'no'):
+        print('Wrong option')
+    return check_for_duplicates == 'yes'
+
+
+def get_files_indexes_to_delete() -> list:
+    while True:
+        indexes_list_str = input('Enter file numbers to delete:\n').split()
+        if indexes_list_str and all([item.isdigit() for item in indexes_list_str]):
+            indexes_list = [int(x) for x in indexes_list_str]
+            if all([item in FileEntry.current_index_dict for item in indexes_list]):
+                return indexes_list
+        print('Wrong format')
+        continue
